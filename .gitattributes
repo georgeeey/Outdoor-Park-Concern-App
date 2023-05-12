@@ -1,43 +1,36 @@
 import math
 
-# our test matrix has 4 rows and 10 columns
+# Define the dimensions of the seating matrix
 n_row = 20
 n_col = 26
 
-# available seat
+# Define the available seat symbol
 available_seat = '.'
+purchases = []
 
-# create some available seating
-seating = []
-for r in range(n_row):
-    row = []
-    for c in range(n_col):
-        row.append(available_seat)
-    seating.append(row)
+# Create available seats
+seating = [[available_seat] * n_col for _ in range(n_row)]
 
-# print available seating
-for r in range(n_row):
-    print(r+1, end="\t")
-    for c in range(n_col):
-        print(seating[r][c], end=" ")
-    print()
+# Function to display available seating
+def display_available_seating():
+    print("Available Seating:")
+    for r in range(n_row):
+        print(r + 1, end="\t")
+        for c in range(n_col):
+            print(seating[r][c], end=" ")
+        print()
 
-# Set Seating prices, tax, and mask fee
-Front_seat_price = 80
+# Define the seating prices, tax rate, and mask fee
+front_seat_price = 80
 middle_seat_price = 50 
 back_seat_price = 25
 sales_tax_rate = 0.0725
 mask_fee = 5.00
-front_seat_range = range(0, 5)
-middle_seat_range = range(5, 11) 
-back_seat_range = range(11, 20)
 
-# To purchase tickets 
-purchases = []  # Initialize an empty list to store purchases
-
+# Function to purchase tickets
 def purchase_tickets(ticket_type, quantity):
     if ticket_type == 'front': 
-        seat_price = Front_seat_price
+        seat_price = front_seat_price
         start_row, end_row = 0, 4
     elif ticket_type == 'middle':
         seat_price = middle_seat_price
@@ -68,6 +61,7 @@ def purchase_tickets(ticket_type, quantity):
     print(f"Mask Fee: ${mask_fee_total:.2f}")
     print(f"Total: ${total:.2f}")
 
+    # Update the seating  with purchased seats
     for row in range(start_row, end_row + 1):
         seats = seating[row]
         for i in range(len(seats) - 1):
@@ -75,7 +69,7 @@ def purchase_tickets(ticket_type, quantity):
                 break
             if seats[i] == '.' and seats[i + 1] == '.': 
                 seats[i] = 'X'
-                seats[i + 1] = 'X'
+                seats[i + 1] = 'e'
                 quantity -= 1
 
     if quantity == 0: 
@@ -90,7 +84,7 @@ def purchase_tickets(ticket_type, quantity):
     else:
         print("\nNot enough available seats.")
 
-# To search purchases by name
+# search purchases by name
 def search_purchases(name):
     found_purchases = []
     for purchase in purchases:
@@ -105,31 +99,30 @@ def search_purchases(name):
     else:
         print(f"\nCould not find purchases for {name}.")
 
-# To display all purchases made 
+# display all purchases made 
 def display_all_purchases():
     print("\nAll Purchases:")
     for purchase in purchases:
         print(f"Name: {purchase['name']}")
-        print(f"Email_address: {purchase['email']}")
+        print(f"Email Address: {purchase['email']}")
         print(f"Ticket Type: {purchase['ticket_type']}")
         print(f"Quantity: {purchase['quantity']}")
         print(f"Total: ${purchase['total_price']:.2f}")
         print()
 
-# text-based menu for the user 
+# Text-based menu for the user 
 while True: 
-    print("\nmenu:")
-    print("[V]iew available seating")
-    print("[B]uy/purchase a ticket")
-    print("[S]earch purchases by name")
-    print("[D]isplay all purchases")
-    print("[Q]uit")
+    print("\nMenu:")
+    print("[V] view available seating")
+    print("[B] buy/purchase a ticket")
+    print("[S] search purchases by name")
+    print("[D] display all purchases")
+    print("[Q] quit")
 
     choice = input("\nEnter your choice: ").upper()
 
     if choice == 'V':
-        # Function to display available seating goes here
-        pass
+        display_available_seating()
     elif choice == 'B': 
         ticket_type = input("Choose your ticket type (front, middle, back): ").lower()
         quantity = int(input("Enter the quantity of tickets: "))
@@ -144,3 +137,4 @@ while True:
         break
     else:
         print("Invalid choice. Please enter a valid input.")
+
