@@ -1,11 +1,8 @@
-"""
-This example code creates a 2d list (2d matrix) that can store seating.
-The matrix is populated with . since all seats are available
-"""
+import math
 
 # our test matrix has 4 rows and 10 columns
-n_row = 4
-n_col = 10
+n_row = 20
+n_col = 26
 
 # available seat
 available_seat = '.'
@@ -24,3 +21,33 @@ for r in range(n_row):
     for c in range(n_col):
         print(seating[r][c], end=" ")
     print()
+
+# Set Seating prizes, tax and mask fee
+Front_seat_price = 80
+middle_seat_price = 50 
+back_seat_price = 25
+sales_tax_rate = 0.0725
+mask_fee = 5.00
+
+#calculate prices for tickets 
+total_price = seat_price * quamtity 
+mask_fee = Mask_fee * quantity
+tax = total_price * sales_tax_rate
+total = total_price + tax + mask_fee
+
+# To purchase tickets 
+def purchase_tickets(ticket_type, quantity):
+    if ticket_type == 'front': 
+        seat_price = Front_seat_price
+        start_row, end_row = 0, 4
+    elif ticket_type == 'middle':
+        seat_price = middle_seat_price
+        start_row, end_row = 5, 10
+    elif ticket_type == 'back':
+        seat_price = back_seat_price
+        start_row, end_row = 11, 19
+    else:
+        print("Not a valid ticket type.")
+        return
+
+
