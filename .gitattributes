@@ -7,6 +7,33 @@ n_col = 26
 # available seat
 available_seat = '.'
 
+# text based menu for user 
+While True: 
+    print("\nmenu:")
+    print("[V]iew available seating")
+    print("[B]uy/purchase a ticket")
+    print("[S]earch purchases by name")
+    print("[D]isplay all purchases")
+    print("[Q]uit")
+
+    choice = input("\nEnter your choice: ").upper()
+
+    if choice == 'V':
+        display_seating()
+    elif choice == 'B': 
+        ticket_type = input("Choose your ticket type (front, middle, back): ").lower()
+        purchase_tickets(ticket_type, quantity)
+    elif choice == 'S':
+        search_name = input("Please enter name to search recent purchases: ")
+        search_purchases(search_name)
+    elif choice == 'D':
+        display_all_purchases()
+    elif choice == 'Q':
+        print("Thank you for using our app!")
+        break
+    else:
+        print("Invalid choice, Please enter valid input.")
+
 # create some available seating
 seating = []
 for r in range(n_row):
@@ -28,6 +55,9 @@ middle_seat_price = 50
 back_seat_price = 25
 sales_tax_rate = 0.0725
 mask_fee = 5.00
+front_seat_range = range(0, 5)
+middle_seat_range = range (5,11) 
+back_seat_range = range (11,20)
 
 #calculate prices for tickets 
 total_price = seat_price * quantity 
@@ -64,16 +94,16 @@ print(f"Tax: ${tax:.2f}")
 print(f"Mask Fee: ${mask_fee:.2}")
 print(f"Total: ${total:.2f}")
 
-# Handle available seats when attempting to purchase
+
 for row in range(start_row, end_row + 1):
     seats = seating[row]
-    for i in range(len(seats) - 2):
+    for i in range(len(seats) - 1):
         if quantity == 0:
             break
         if seats[i] == '.' and seats[i + 1] == '.': 
-        seats[i] = 'x'
-        seats[i + 1] = 'x'
-        quantity = 1
+            seats[i] = 'X'
+            seats[i + 1] = 'X'
+            quantity -= 1
 
 if quantity == 0 
     purchases.append({
@@ -103,9 +133,12 @@ def search_purchases(name):
         print(f"\nCould not find purchases for {name}.")
 
 # To display all purchases made 
-def display-all_purchase():
+def display-all_purchases():
     print("\nAll Purchases:")
     for purchase in purchases:
         print(f"Name: {purchase['name']}")
         print(f"Email_address: {purchase['email_address']}")
         print(f"Ticket Type: {purchase['ticket_type']}")
+        print(f"Quantity: {purchase['quantity']}")
+        print(f"Total: ${purchase['total_price']:.2f}")
+        print()
