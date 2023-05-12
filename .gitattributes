@@ -30,7 +30,7 @@ sales_tax_rate = 0.0725
 mask_fee = 5.00
 
 #calculate prices for tickets 
-total_price = seat_price * quamtity 
+total_price = seat_price * quantity 
 mask_fee = Mask_fee * quantity
 tax = total_price * sales_tax_rate
 total = total_price + tax + mask_fee
@@ -50,4 +50,62 @@ def purchase_tickets(ticket_type, quantity):
         print("Not a valid ticket type.")
         return
 
+# Print a receipt for the user, ask for name and email
 
+name = input("Enter your name: ")
+email_address = input("Enter your email address: ")
+
+Print("Ticket Summary:")
+print(f"Ticket Type: {ticket_type}")
+print(f"Quantity: {quantity}")
+print(f"Seat Price: ${seat_price}")
+print(f"total price: {total_price}")
+print(f"Tax: ${tax:.2f}")
+print(f"Mask Fee: ${mask_fee:.2}")
+print(f"Total: ${total:.2f}")
+
+# Handle available seats when attempting to purchase
+for row in range(start_row, end_row + 1):
+    seats = seating[row]
+    for i in range(len(seats) - 2):
+        if quantity == 0:
+            break
+        if seats[i] == '.' and seats[i + 1] == '.': 
+        seats[i] = 'x'
+        seats[i + 1] = 'x'
+        quantity = 1
+
+if quantity == 0 
+    purchases.append({
+        'name': name,
+        'email': email,
+        'ticket_type': ticket_type,
+        'quantity': quantity,
+        'total_price': total
+    })
+    print("\nYour purchase is successful!")
+else:
+    print("\nNot enough available seats.")
+
+# To search purchases by name
+def search_purchases(name):
+    found_purchases = []
+    for purchase in purchases:
+        if purchase['name'] == name:
+            found_purchases.append(purchase)
+    if found_purchases:
+        print(f"Purchases by {name}:")
+        for purchases in found_purchases: 
+            print(f"Ticket Type: {purchase['ticket_type']}")
+            print(f"Quantity: {purchase['quantity']}")
+            print(f"Total: ${purchase[quantity']}")
+    else:
+        print(f"\nCould not find purchases for {name}.")
+
+# To display all purchases made 
+def display-all_purchase():
+    print("\nAll Purchases:")
+    for purchase in purchases:
+        print(f"Name: {purchase['name']}")
+        print(f"Email_address: {purchase['email_address']}")
+        print(f"Ticket Type: {purchase['ticket_type']}")
